@@ -4,7 +4,7 @@ import 'package:pocketquran/data/network/network_api_service.dart';
 import 'package:pocketquran/models/surah.dart';
 import 'package:pocketquran/repo/list_surah/list_surah_repo.dart';
 
-class ListSurahRepoImpl implements ListSurahRepo {
+class SurahListRepoImpl implements SurahListRepo {
   final BaseApiService _apiSvc = NetworkApiService();
   @override
   Future<ListSurah?> getSurahList() async {

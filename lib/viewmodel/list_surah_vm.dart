@@ -4,7 +4,7 @@ import 'package:pocketquran/models/surah.dart';
 import 'package:pocketquran/repo/list_surah/list_surah_repo_impl.dart';
 
 class SurahListVM extends ChangeNotifier {
-  final _listSurahRepo = ListSurahRepoImpl();
+  final _listSurahRepo = SurahListRepoImpl();
 
   ApiResponse<ListSurah> listSurah = ApiResponse.loading();
 

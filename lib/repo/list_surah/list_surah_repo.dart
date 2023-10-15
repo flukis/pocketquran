@@ -2,6 +2,6 @@
 
 import 'package:pocketquran/models/surah.dart';
 
-class ListSurahRepo {
+class SurahListRepo {
   Future<ListSurah?> getSurahList() async {}
 }

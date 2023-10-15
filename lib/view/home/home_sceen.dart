@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pocketquran/data/response/api_status.dart';
-import 'package:pocketquran/view/widget/list_surah_widget.dart';
+import 'package:pocketquran/view/widget/list_surah_item_widget.dart';
 import 'package:pocketquran/viewmodel/list_surah_vm.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Pocket Quran"),
+      ),
       body: ChangeNotifierProvider<SurahListVM>.value(
         value: surahListVM,
         child: Consumer<SurahListVM>(builder: (context, surahListVM, _) {
@@ -42,6 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: surahListVM.listSurah.data!.listSurah!.length,
                   itemBuilder: (context, index) {
                     return ListSurahItemWidget(
+                      key: Key(surahListVM
+                          .listSurah.data!.listSurah![index].number
+                          .toString()),
                       numOfVerseArabic:
                           surahListVM.listSurah.data!.listSurah![index].number,
                       latinName: surahListVM.listSurah.data!.listSurah![index]

@@ -1,4 +1,4 @@
-import 'package:pocketquran/models/arah_in_juz.dart';
+import 'package:pocketquran/models/ayah_in_juz.dart';
 import 'package:pocketquran/models/surah.dart';
 
 class PreBismillah {
@@ -21,38 +21,41 @@ class PreBismillah {
   }
 }
 
-class SurahData {
+class AyahListOfSurah {
   int number;
   int sequence;
   int numberOfVerses;
   Name name;
   Revelation revelation;
   Tafsir tafsir;
-  PreBismillah preBismillah;
+  PreBismillah? preBismillah;
   List<Verse> verses;
 
-  SurahData({
+  AyahListOfSurah({
     required this.number,
     required this.sequence,
     required this.numberOfVerses,
     required this.name,
     required this.revelation,
     required this.tafsir,
-    required this.preBismillah,
+    this.preBismillah,
     required this.verses,
   });
 
-  factory SurahData.fromJson(Map<String, dynamic> json) {
+  factory AyahListOfSurah.fromJson(Map<String, dynamic> json) {
+    final jsonData = json['data'];
     var verseList = List<Verse>.from(
-        (json['verses'] as List).map((verse) => Verse.fromJson(verse)));
-    return SurahData(
-      number: json['number'],
-      sequence: json['sequence'],
-      numberOfVerses: json['numberOfVerses'],
-      name: Name.fromJson(json['name']),
-      revelation: Revelation.fromJson(json['revelation']),
-      tafsir: Tafsir.fromJson(json['tafsir']),
-      preBismillah: PreBismillah.fromJson(json['preBismillah']),
+        (jsonData['verses'] as List).map((verse) => Verse.fromJson(verse)));
+    return AyahListOfSurah(
+      number: jsonData['number'],
+      sequence: jsonData['sequence'],
+      numberOfVerses: jsonData['numberOfVerses'],
+      name: Name.fromJson(jsonData['name']),
+      revelation: Revelation.fromJson(jsonData['revelation']),
+      tafsir: Tafsir.fromJson(jsonData['tafsir']),
+      preBismillah: jsonData['preBismillah'] != null
+          ? PreBismillah.fromJson(jsonData['preBismillah'])
+          : null,
       verses: verseList,
     );
   }

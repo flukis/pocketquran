@@ -85,17 +85,14 @@ class AudioData {
 
 class TafsirData {
   String id;
-  String long;
 
   TafsirData({
     required this.id,
-    required this.long,
   });
 
   factory TafsirData.fromJson(Map<String, dynamic> json) {
     return TafsirData(
-      id: json['id'],
-      long: json['long'],
+      id: json['id']['long'],
     );
   }
 }
