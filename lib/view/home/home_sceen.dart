@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pocketquran/constant/colors.dart';
 import 'package:pocketquran/data/response/api_status.dart';
-import 'package:pocketquran/view/widget/list_surah_item_widget.dart';
+import 'package:pocketquran/view/widget/surah_widget.dart';
 import 'package:pocketquran/viewmodel/list_surah_vm.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +34,16 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Consumer<SurahListVM>(builder: (context, surahListVM, _) {
           switch (surahListVM.listSurah.status) {
             case Status.loading:
-              return const Text("Loading...");
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(70),
+                  child: LinearProgressIndicator(
+                    backgroundColor: graySecondaryColor,
+                    valueColor: AlwaysStoppedAnimation(secondaryColor),
+                    minHeight: 14,
+                  ),
+                ),
+              );
             case Status.error:
               return Text(surahListVM.listSurah.msg ?? "NA");
             case Status.completed:
@@ -44,18 +54,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: surahListVM.listSurah.data!.listSurah!.length,
                   itemBuilder: (context, index) {
+                    final data = surahListVM.listSurah.data!.listSurah![index];
                     return ListSurahItemWidget(
-                      key: Key(surahListVM
-                          .listSurah.data!.listSurah![index].number
-                          .toString()),
-                      numOfVerseArabic:
+                      key: Key(data.number.toString()),
+                      numOfSurah:
                           surahListVM.listSurah.data!.listSurah![index].number,
-                      latinName: surahListVM.listSurah.data!.listSurah![index]
-                          .name.translation['id']!,
+                      numOfVerse: data.numberOfVerses,
+                      type: data.revelation.id,
                       arabicName: surahListVM.listSurah.data!.listSurah![index]
                           .name.transliteration['id']!,
-                      arabic: surahListVM
-                          .listSurah.data!.listSurah![index].revelation.arab,
+                      arabic: data.name.short,
+                      surahTranslation: data.name.translation["id"]!,
+                      surahRevelation: data.revelation.id,
                     );
                   },
                 ),
